@@ -4,14 +4,14 @@
       <h4 class="filter-header">Transaction Type <span>Choose to filter</span></h4>
       <div class="list-group filter-type">
         <%transactions_types.each do |type|%>
-         <%=link_to type, expenses_path, class: "list-group-item", remote: true%>
+         <%=link_to type, expenses_path(type_query(@query_params, type)), class: "list-group-item #{'selected' if (@query_params["type"].present? && type == @query_params["type"][0])}"%>
         <%end%>
       </div>
 
       <h4 class="filter-header">Categoría <span>Selecciona para filtrar</span></h4>
       <div class="list-group filter-type">
         <%@categories.each do |category|%>
-          <%=link_to category.name, expenses_path(cname: category.name), class: "list-group-item", remote: true%>
+          <%=link_to category.name, expenses_path(category_query(@query_params, category.name)), class: "list-group-item #{'selected' if (@query_params["category"].present? && category.name == @query_params["category"][0])}"%>
         <%end%>
       </div>
     </div>
@@ -35,10 +35,10 @@
         <div class="col-md-12">
           <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
           <h4 class="dropdown pull-right">
-            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%=@expenses.first.date.strftime("%B %Y")%> <span class="caret"></span></button>
+            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%=@current_month%> <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
               <%last_twelve_months.each do |month|%>
-                <li role="presentation"><%=link_to month, expenses_path, class: "presentation", remote: true%></li>
+                <li role="presentation"><%=link_to month, expenses_path(date_query(@query_params, month)), class: "presentation"%></li>
               <%end%>
             </ul>
           </h4>
