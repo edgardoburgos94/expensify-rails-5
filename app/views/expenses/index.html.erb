@@ -3,30 +3,30 @@
     <div class="col-md-3">
       <h4 class="filter-header">Transaction Type <span>Choose to filter</span></h4>
       <div class="list-group filter-type">
-        <a href="#" class="list-group-item">Purchase</a>
-        <a href="#" class="list-group-item">Withdrawal</a>
-        <!-- more transaction types -->
+        <%transactions_types.each do |type|%>
+         <%=link_to type, expenses_path, class: "list-group-item", remote: true%>
+        <%end%>
       </div>
 
       <h4 class="filter-header">Categoría <span>Selecciona para filtrar</span></h4>
       <div class="list-group filter-type">
-        <a href="#" class="list-group-item">Restaurants</a>
-        <a href="#" class="list-group-item">Car</a>
-        <!-- more categories  -->
+        <%@categories.each do |category|%>
+          <%=link_to category.name, expenses_path(cname: category.name), class: "list-group-item", remote: true%>
+        <%end%>
       </div>
     </div>
     <div class="col-md-9 index-data">
       <div class="row" style="margin-top: 10px;">
         <div class="summary-box col-md-4 text-center">
-          <div class="summary-value">$2,500,000</div>
+          <div class="summary-value"><%=number_to_currency(total_expenses_amount(@expenses))%></div>
           <div class="summary-label">Total</div>
         </diV>
         <div class="summary-box col-md-4 text-center">
-          <div class="summary-value">2</div>
+          <div class="summary-value"><%=@expenses.size%></div>
           <div class="summary-label">Transactions</div>
         </div>
         <div class="summary-box col-md-4 text-center">
-          <div class="summary-value">$1,000,000</div>
+          <div class="summary-value"><%=number_to_currency(average_expenses_amount(@expenses))%></div>
           <div class="summary-label">Average</div>
         </div>
       </div>
@@ -35,11 +35,11 @@
         <div class="col-md-12">
           <a href="#" class="btn btn-success pull-left"><span class="glyphicon glyphicon-plus"></span> New Expense</a>
           <h4 class="dropdown pull-right">
-            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown">April 2016 <span class="caret"></span></button>
+            <button type="button" class="dropdown-toggle btn btn-link" data-toggle="dropdown"><%=@expenses.first.date.strftime("%B %Y")%> <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
-              <li role="presentation"><a href="#">April 2016</a></li>
-              <li role="presentation"><a href="#">March 2016</a></li>
-              <!-- more months -->
+              <%last_twelve_months.each do |month|%>
+                <li role="presentation"><%=link_to month, expenses_path, class: "presentation", remote: true%></li>
+              <%end%>
             </ul>
           </h4>
         </div>
@@ -55,27 +55,29 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="date">
-              <div class="day">24</div>
-              <div class="month">Apr</div>
-            </td>
-            <td>
-              <div>
-                <span class="type">Purchase</span>
-              </div>
-              <div>
-                <span class="concept">Example concept</span>
-              </div>
-            </td>
-            <td class="category text-right">Restauratns</td>
-            <td class="text-right" style="width: 170px;">
-              <div class="amount">$1,000,000</div>
-              <div class="actions">
-                <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
-            </td>
-          </tr>
+          <%@expenses.each do |expense|%>
+            <tr>
+              <td class="date">
+                <div class="day"><%=expense.date.day%></div>
+                <div class="month"><%=expense.date.strftime("%b")%></div>
+              </td>
+              <td>
+                <div>
+                  <span class="type"><%=expense.expense_type%></span>
+                </div>
+                <div>
+                  <span class="concept"><%=expense.concept%></span>
+                </div>
+              </td>
+              <td class="category text-right"><%=expense.category.name%></td>
+              <td class="text-right" style="width: 170px;">
+                <div class="amount"><%=number_to_currency(expense.amount)%></div>
+                <div class="actions">
+                  <a href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                  <a href="#"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+              </td>
+            </tr>
+          <%end%>
         </tbody>
       </table>
     </div>

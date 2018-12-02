@@ -23,7 +23,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">Últimos 6 Meses</div>
         <div class="panel-body">
-          <div id="expenses-chart" style="height: 250px;"></div>
+          <div id="expenses-chart" style="height: 250px;">
+            <canvas id="month-expenses-chart"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -31,7 +33,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">Por Día</div>
         <div class="panel-body">
-          <div id="daily-expenses-chart" style="height: 250px;"></div>
+          <div id="daily-expenses-chart" style="height: 250px;">
+            <canvas id="day-expenses-chart"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -42,7 +46,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">Por Categoría</div>
         <div class="panel-body">
-          <div id="category-chart" style="height: 250px;"></div>
+          <div id="category-chart" style="height: 250px;">
+            <canvas id="category-expenses-chart"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -50,9 +56,96 @@
       <div class="panel panel-default">
         <div class="panel-heading">Acumulado</div>
         <div class="panel-body">
-          <div id="month-acc" style="height: 250px;"></div>
+          <div id="month-acc" style="height: 250px;">
+            <canvas id="month-acc-chart"></canvas>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+  // ---------MONTH EXPENSES--------
+  var ctx = document.getElementById('month-expenses-chart').getContext('2d');
+  var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'bar',
+
+      // The data for our dataset
+      data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [{
+              label: "My First dataset",
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: [0, 10, 5, 2, 20, 30, 45],
+          }]
+      },
+
+      // Configuration options go here
+      options: {}
+  });
+
+  // ---------DAY EXPENSES--------
+  var ctx2 = document.getElementById('day-expenses-chart').getContext('2d');
+  var chart = new Chart(ctx2, {
+      // The type of chart we want to create
+      type: 'bar',
+
+      // The data for our dataset
+      data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [{
+              label: "My First dataset",
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: [0, 10, 5, 2, 20, 30, 45],
+          }]
+      },
+
+      // Configuration options go here
+      options: {}
+  });
+
+  // ---------CATEGORY EXPENSES--------
+  var ctx3 = document.getElementById('category-expenses-chart').getContext('2d');
+  var chart = new Chart(ctx3, {
+      // The type of chart we want to create
+      type: 'pie',
+
+      // The data for our dataset
+      data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [{
+              label: "My First dataset",
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: [0, 10, 5, 2, 20, 30, 45],
+          }]
+      },
+
+      // Configuration options go here
+      options: {}
+  });
+
+  // ---------MONTH ACCUMULATED--------
+  var ctx = document.getElementById('month-acc-chart').getContext('2d');
+  var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'line',
+
+      // The data for our dataset
+      data: {
+          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          datasets: [{
+              label: "My First dataset",
+              backgroundColor: 'rgb(255, 99, 132)',
+              borderColor: 'rgb(255, 99, 132)',
+              data: [0, 10, 5, 2, 20, 30, 45],
+          }]
+      },
+
+      // Configuration options go here
+      options: {}
+  });
+</script>

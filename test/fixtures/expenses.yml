@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  expense_type: 1
+  date: 2018-12-01
+  concept: MyString
+  category: one
+  amount: 1.5
+
+two:
+  expense_type: 1
+  date: 2018-12-01
+  concept: MyString
+  category: two
+  amount: 1.5
