@@ -1,0 +1,12 @@
+console.log("Entró al create.js");
+$('#newExpense').modal('hide')
+$('.modals').empty();
+$('.modal-backdrop').remove();
+$('body').removeClass('modal-open')
+<%if @expense.errors.any?%>
+  console.log('Hay errores');
+  $('.modals').html("<%= j render(:partial => 'expenses/form_partials/new') %>");
+  $('#newExpense').modal('show')
+<%else%>
+
+<%end%>

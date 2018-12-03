@@ -1,0 +1,54 @@
+<div class="modal fade" id="newExpense" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Expense</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="new-form-modal">
+          <%=form_for @expense, html: {class: 'new-expense-form'}, remote: true do |f| %>
+            <% unless @expense.errors.messages.empty?%>
+              <% @expense.errors.full_messages.each do |error| %>
+                <p1><%= error%> </p1> <br>
+              <%end%>
+            <% end %>
+            <div class="row">
+              <div class="col-xs-12 col-md-6 col-lg-6">
+                <%=f.label :expense_type%>  <br>
+                <%= f.select(:expense_type, Expense.expense_types.keys.map {|type| [type, type]}, {}, class: 'form-control') %>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-6">
+                <%=f.label :date%> <br>
+                <%=f.date_field :date, class: 'form-control'%>
+              </div>
+            </div> <br>
+            <div class="row">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%=f.label :concept%> <br>
+                <%=f.text_field :concept, class: 'form-control'%>
+              </div>
+            </div> <br>
+            <div class="row">
+              <div class="col-xs-12 col-md-6 col-lg-6">
+                <%=f.label :category_id%> <br>
+                <%= f.collection_select(:category_id, Category.all, :id, :name, {}, {:class => 'form-control'}) %>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-6">
+                <%=f.label :amount%> <br>
+                <%=f.number_field :amount, class: 'form-control'%>
+              </div>
+            </div> <br>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <%=f.submit 'Create expense', class: "btn btn-primary"%>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

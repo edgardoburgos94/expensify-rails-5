@@ -8,7 +8,24 @@ class ExpensesController < ApplicationController
     @expenses = Expense.per_month(@current_month)
     @expenses = @expenses.where(expense_type: params[:type]) if params[:type].present?
     @expenses = @expenses.joins(:category).merge(Category.where(name: params[:category])) if params[:category].present?
-    
-    @query_params = get_query_params(request)
+
+    @query_params = get_query_params_from_url(request)
+  end
+
+  def new
+    @expense = Expense.new
+  end
+
+  def create
+    @query_params = get_query_params_from_referer(request)
+    @expense = Expense.new(expense_params)
+
+    @expense.save
+  end
+
+  private
+
+  def expense_params
+    params.require(:expense).permit(:expense_type, :date, :concept, :category_id, :amount)
   end
 end
